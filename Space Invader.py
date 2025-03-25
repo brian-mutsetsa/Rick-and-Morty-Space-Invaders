@@ -12,16 +12,13 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 
 # background
-background = pygame.image.load('game background.jpg')
+background = pygame.image.load('Images/game background.jpg')
 
 # background sound
 playlist = list()
-playlist.append("Sounds/background.wav")
 playlist.append("Sounds/Gerry Rafferty - Baker Street (Instrumental).mp3")
 playlist.append("Sounds/Get Schwifty - Rick and Morty Karaoke.mp3")
 playlist.append("Sounds/Head Bent Over - Rick and Morty Karaoke.mp3")
-playlist.append("Sounds/Rick and Morty Theme Song [HD].mp3")
-playlist.append("Sounds/The Rick Dance!.mp3")
 
 mixer.music.load(playlist.pop())  # Get the first track from the playlist
 mixer.music.queue(playlist.pop())  # Queue the 2nd song
@@ -32,11 +29,11 @@ mixer.music.play()  # Play the music
 pygame.display.set_caption("Space invaders")
 
 # change the logo/icon of the window
-icon = pygame.image.load('alien (1).png')
+icon = pygame.image.load('Images/alien (1).png')
 pygame.display.set_icon(icon)
 
 # Player
-playerImg = pygame.image.load('Ship 80x80.png')
+playerImg = pygame.image.load('Images/Ship 80x80.png')
 playerX = 370
 playerY = 480
 playerX_change = 0
@@ -56,7 +53,7 @@ enemyY_change = []
 num_of_enemies = 6
 
 for i in range(num_of_enemies):
-    enemyImg.append(pygame.image.load('icons8-rick-sanchez-96.png'))
+    enemyImg.append(pygame.image.load('Images/icons8-rick-sanchez-96.png'))
     enemyX.append(random.randint(0, 704))
     enemyY.append(random.randint(0, 10))
     enemyX_change.append(0.3)
@@ -71,7 +68,7 @@ def enemy(x, y, i):
 # Bullet
 # "ready" - you can't see the bullet on the screen
 # "fire" - the bullet is currently moving
-bulletImg = pygame.image.load('bullet (1).png')
+bulletImg = pygame.image.load('Images/bullet (1).png')
 bulletX = 0
 bulletY = 480
 bulletX_change = 0
@@ -80,17 +77,17 @@ bullet_state = "ready"
 
 # Score
 score_value = 0
-font = pygame.font.Font('go3v2.ttf', 32)
+font = pygame.font.Font('Fonts/go3v2.ttf', 32)
 textX = 10
 textY = 10
 speed_increase = 0.1
 
 # Game over text
-over_font = pygame.font.Font('go3v2.ttf', 96)
+over_font = pygame.font.Font('Fonts/go3v2.ttf', 96)
 
 
 def show_score(x, y):
-    score = font.render("Score : " + str(score_value), True, (0, 0, 0))
+    score = font.render("Score : " + str(score_value), True, (255, 255, 255))
     screen.blit(score, (x, y))
 
 
@@ -132,12 +129,9 @@ while running:
             if len(playlist) > 0:  # If there are more tracks in the queue...
                 pygame.mixer.music.queue(playlist.pop())  # Q
             elif len(playlist) == 0:
-                playlist.append("Sounds/background.wav")
                 playlist.append("Sounds/Gerry Rafferty - Baker Street (Instrumental).mp3")
                 playlist.append("Sounds/Get Schwifty - Rick and Morty Karaoke.mp3")
                 playlist.append("Sounds/Head Bent Over - Rick and Morty Karaoke.mp3")
-                playlist.append("Sounds/Rick and Morty Theme Song [HD].mp3")
-                playlist.append("Sounds/The Rick Dance!.mp3")
 
                 # mixer.music.load(playlist.pop())  # Get the first track from the playlist
                 mixer.music.queue(playlist.pop())  # Queue the 2nd song
@@ -152,7 +146,7 @@ while running:
                 playerX_change = 0.6
             if event.key == pygame.K_SPACE:
                 if bullet_state == "ready":
-                    bullet_sound = mixer.Sound("Sounds/laser_2.wav")
+                    bullet_sound = mixer.Sound("Sounds/laser_2.mp3")
                     bullet_sound.play()
                     # get the current X coordinate of the space ship
                     bulletX = playerX
@@ -189,7 +183,7 @@ while running:
         # Collision
         collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
         if collision:
-            explosion_sound = mixer.Sound("Sounds/explosion.wav")
+            explosion_sound = mixer.Sound("Sounds/explosion.mp3")
             explosion_sound.play()
             bulletY = 480
             bullet_state = "ready"
